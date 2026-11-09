@@ -1,35 +1,61 @@
-totalexpenses_value = 0
-grocery_value = 0
-restaurant_value = 0
-gas_value = 0
-rent_value = 0 
+
+valuedict = {"grocery":0, #grocery
+             "restaurant":0, #restaurant
+             "gas":0, #gas
+             "rent":0} #rent
+
+def end():
+    choice = int(input("Press 1 to end the program or 2 to go back to the main menu."))
+    if choice == 1:
+        exit()
+    else:
+        return
+
+def sum_up(dict):
+    return sum(dict.values())
+
+def percent(dict, key, total):    
+    x = dict[key] / total
+    return ("{:.2%}".format(x))
 
 
 
 while True:
 
-    select = int(input("What did you want to do today? 1.add 2.view cat 3.view total \n"))
+    select = int(input("What did you want to do today? \n1. Add a new payment \n2. View categories \n3. Total Spending for the Month \nEnter your numerical value:"))
 
     if (3<select or select<1):
-        print("retry\n")
-        
+        print("Try again.\n")
+        continue
+
     if (select == 1):
       
-        valinput = int(input("Enter an amount\n"))
-        catinput = int(input("Enter which category: 1 for grocery, 2 for restaurant 3 for gas 4 for rent\n"))
+        catinput = input("Enter which category your purchase was in: grocery, restaurant, gas or rent\n")
 
-        
-        if (catinput not in valuedict):
-                       print("error reading value\n")
-        
-        valuedict = {1:grocery_value, 2:restaurant_value, 3:gas_value, 4:rent_value}
-        
-                       
+        if (catinput not in valuedict.keys()):
+            print("Please enter a category from those listed.\n")
+            continue
 
-        
+        else:
+
+            valinput = int(input("Enter an amount\n"))
+            valuedict[catinput] += valinput
+            print (valuedict[catinput])            
+            end()
+
     elif (select == 2):
 
-        dict = {"Rent Payment = ": rent_value, "Groceries = ": grocery_value, "Restaurants = ": restaurant_value}
+        print ("Rent Payment = " + str(valuedict["rent"]) + " Groceries = " + str(valuedict["grocery"])+ " Restaurants = " + str(valuedict["restaurant"]))
+        end()
+    elif (select == 3):
 
-        for key, value in dict.items():
-            print (key, value)
+        total = sum_up(valuedict)
+        if (total == 0):
+            print("You have not spent any money this month")
+            end()
+        else:
+            print ("Total spent: " + str(total))
+            for key in valuedict.keys():
+                ratio = percent(valuedict, key, total)
+                print ("You spent " + ratio + "on " + key + ".") 
+                end()
