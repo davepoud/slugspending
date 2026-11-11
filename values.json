@@ -1,7 +1,7 @@
 {
-    "grocery": 50,
+    "grocery": 0,
     "gas": 0,
     "restaurant": 0,
-    "rent": 1070,
-    "recurring": 1070
+    "rent": 0,
+    "recurring": 0
 }
